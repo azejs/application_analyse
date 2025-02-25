@@ -1,0 +1,46 @@
+{
+  "name": "backend",
+  "version": "4.21.0",
+  "private": true,
+  "scripts": {
+    "start": "NODE_ENV=production node ./bin/www",
+    "dev": "nodemon --exec \"node ./bin/www\" | pino-colada",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "test:unit": "echo \"No unit tests configured\"",
+    "build-frontend": "cd ../frontend && npm run build",
+    "clean-public": "rm -rf public/* || rmdir /s /q public && mkdir public",
+    "copy-build": "cp -r ../frontend/build/* public/ || robocopy ../frontend/build public /e",
+    "start:with-build": "npm run build-frontend && npm run clean-public && npm run copy-build && npm start"
+  },
+  "dependencies": {
+    "@tensorflow/tfjs": "^4.22.0",
+    "axios": "^1.7.9",
+    "bcryptjs": "^3.0.2",
+    "brain.js": "^2.0.0-beta.24",
+    "cookie-parser": "~1.4.7",
+    "cors": "^2.8.5",
+    "debug": "^4.4.0",
+    "dotenv": "^16.4.7",
+    "esprima": "^4.0.1",
+    "express": "^4.21.2",
+    "express-fileupload": "^1.5.1",
+    "http-errors": "^2.0.0",
+    "jsonwebtoken": "^9.0.2",
+    "mammoth": "^1.9.0",
+    "mongoose": "^8.10.1",
+    "morgan": "^1.10.0",
+    "multer": "^1.4.5-lts.1",
+    "natural": "^8.0.1",
+    "node-fetch": "^3.3.2",
+    "openai": "^4.85.3",
+    "path": "^0.12.7",
+    "pdf-parse": "^1.1.1",
+    "pdfkit": "^0.16.0",
+    "pino-colada": "^2.2.2"
+  },
+  "devDependencies": {
+    "eslint": "^9.21.0",
+    "eslint-plugin-react": "^7.37.4",
+    "nodemon": "^3.1.9"
+  }
+}
