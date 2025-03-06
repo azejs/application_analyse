@@ -19,16 +19,7 @@ exports.getCurrentUser = async (req, res) => {
             _id: user._id,
             firstName: user.firstName,
             lastName: user.lastName,
-            compte: user.compte,
-            address: user.address,
-            phone: user.phone,
-            dateOfBirth: user.dateOfBirth,
-            gender: user.gender,
-            institution: user.institution,
-            educationLevel: user.educationLevel,
-            diploma: user.diploma,
-            languages: user.languages,
-            role: user.role,
+            address: user.email,
             avatar: user.avatar || null,
         });
     } catch (err) {
@@ -42,8 +33,8 @@ exports.getCurrentUser = async (req, res) => {
 exports.signup = async (req, res) => {
   
     try {
-        const { matricule, cin,compte,firstName,lastName, password, role } = req.body;
-        let user = await User.findOne({ matricule });
+        const {email,firstName,lastName, password, role } = req.body;
+        let user = await User.findOne({ email });
 
         if (user) {
             return res.status(400).json({ msg: "L'utilisateur existe déjà." });
@@ -51,11 +42,9 @@ exports.signup = async (req, res) => {
 
         // Création d'un nouvel utilisateur avec un rôle par défaut 'user'
         user = new User({ 
-            matricule, 
-            cin, 
-            compte, 
             firstName, 
             lastName, 
+            email, 
             password, 
             role: role || 'user' 
         });
@@ -93,15 +82,15 @@ exports.signup = async (req, res) => {
 
 exports.login = async (req, res) => {
   try {
-    const { compte, password } = req.body;
-   console.log("compte, password reçus aux frontend",compte, password);
-    // Validation pour vérifier si l'compte et le mot de passe sont fournis
-    if (!compte || !password) {
-      return res.status(400).json({ msg: "compte et mot de passe sont requis." });
+    const { email, password } = req.body;
+   console.log("email, password reçus aux frontend",email, password);
+    // Validation pour vérifier si l'email et le mot de passe sont fournis
+    if (!email || !password) {
+      return res.status(400).json({ msg: "email et mot de passe sont requis." });
     }
 
-    // Recherche de l'utilisateur par compte
-    const user = await User.findOne({ compte });
+    // Recherche de l'utilisateur par email
+    const user = await User.findOne({ email });
     if (!user) {
       return res.status(400).json({ msg: "Identifiants invalides." });
     }
@@ -141,6 +130,7 @@ exports.login = async (req, res) => {
 
 
 // Déconnexion d'un utilisateur
+ 
 exports.logout = (req, res) => {
     try {
         res.clearCookie('token');
@@ -167,88 +157,88 @@ exports.getProfile = async (req, res) => {
 
 // Mettre à jour le profil de l'utilisateur
  // Mettre à jour le profil de l'utilisateur
- exports.updateProfile = async (req, res) => {
-    const { firstName, lastName, address, phone, dateOfBirth, gender, institution, educationLevel, diploma, languages } = req.body;
+//  exports.updateProfile = async (req, res) => {
+//     const { firstName, lastName, address, phone, dateOfBirth, gender, institution, educationLevel, diploma, languages } = req.body;
 
-    try {
-        console.log('ID utilisateur:', req.user.id); // Log de l'ID utilisateur
-        console.log('Données reçues:', req.body); // Log des données reçues pour la mise à jour
+//     try {
+//         console.log('ID utilisateur:', req.user.id); // Log de l'ID utilisateur
+//         console.log('Données reçues:', req.body); // Log des données reçues pour la mise à jour
 
-        let user = await User.findById(req.user.id);
-        if (!user) {
-            return res.status(404).json({ msg: "Utilisateur non trouvé." });
-        }
+//         let user = await User.findById(req.user.id);
+//         if (!user) {
+//             return res.status(404).json({ msg: "Utilisateur non trouvé." });
+//         }
 
-        // Mise à jour des informations de l'utilisateur
-        user.firstName = firstName || user.firstName;
-        user.lastName = lastName || user.lastName;
-        user.address = address || user.address;
-        user.phone = phone || user.phone;
-        user.dateOfBirth = dateOfBirth ? new Date(dateOfBirth) : user.dateOfBirth; // Conversion en date si fourni
-        user.gender = gender || user.gender;
-        user.institution = institution || user.institution;
-        user.educationLevel = educationLevel || user.educationLevel;
-        user.diploma = diploma || user.diploma;
+//         // Mise à jour des informations de l'utilisateur
+//         user.firstName = firstName || user.firstName;
+//         user.lastName = lastName || user.lastName;
+//         user.address = address || user.address;
+//         user.phone = phone || user.phone;
+//         user.dateOfBirth = dateOfBirth ? new Date(dateOfBirth) : user.dateOfBirth; // Conversion en date si fourni
+//         user.gender = gender || user.gender;
+//         user.institution = institution || user.institution;
+//         user.educationLevel = educationLevel || user.educationLevel;
+//         user.diploma = diploma || user.diploma;
 
-        // Mise à jour des langues
-        if (languages) {
-            user.languages = { ...user.languages.toObject(), ...languages };
-        }
+//         // Mise à jour des langues
+//         if (languages) {
+//             user.languages = { ...user.languages.toObject(), ...languages };
+//         }
 
-        console.log('Utilisateur mis à jour:', user); // Log des informations utilisateur avant l'enregistrement
+//         console.log('Utilisateur mis à jour:', user); // Log des informations utilisateur avant l'enregistrement
 
-        await user.save();
+//         await user.save();
 
-        // Renvoyer l'utilisateur à jour dans la réponse
-        res.json({
-            _id: user._id,
-            firstName: user.firstName,
-            lastName: user.lastName,
-            compte: user.compte,
-            address: user.address,
-            phone: user.phone,
-            dateOfBirth: user.dateOfBirth,
-            gender: user.gender,
-            institution: user.institution,
-            educationLevel: user.educationLevel,
-            diploma: user.diploma,
-            languages: user.languages,
-            role: user.role,
-            avatar: user.avatar || null,
-        });
-    } catch (err) {
-        console.error('Erreur lors de la mise à jour du profil:', err.message);
-        res.status(500).send("Erreur du serveur.");
-    }
-};
+//         // Renvoyer l'utilisateur à jour dans la réponse
+//         res.json({
+//             _id: user._id,
+//             firstName: user.firstName,
+//             lastName: user.lastName,
+//             email: user.email,
+//             address: user.address,
+//             phone: user.phone,
+//             dateOfBirth: user.dateOfBirth,
+//             gender: user.gender,
+//             institution: user.institution,
+//             educationLevel: user.educationLevel,
+//             diploma: user.diploma,
+//             languages: user.languages,
+//             role: user.role,
+//             avatar: user.avatar || null,
+//         });
+//     } catch (err) {
+//         console.error('Erreur lors de la mise à jour du profil:', err.message);
+//         res.status(500).send("Erreur du serveur.");
+//     }
+// };
 
 
 // Récupérer tous les utilisateurs avec pagination
 // Récupérer tous les utilisateurs avec pagination
-exports.getAllUsers = async (req, res) => {
-    try {
-        const { page = 1, limit = 10 } = req.query; // Default page = 1, limit = 10
-        const query = { role: "user" }; // Query to filter users with role 'user'
+// exports.getAllUsers = async (req, res) => {
+//     try {
+//         const { page = 1, limit = 10 } = req.query; // Default page = 1, limit = 10
+//         const query = { role: "user" }; // Query to filter users with role 'user'
 
-        // Count the total number of users with role 'user'
-        const totalUsers = await User.countDocuments(query);
+//         // Count the total number of users with role 'user'
+//         const totalUsers = await User.countDocuments(query);
 
-        // Fetch users with role 'user', apply pagination and exclude password
-        const users = await User.find(query)
-            .select('-password') // Exclude the password field
-            .limit(limit * 1)
-            .skip((page - 1) * limit);
+//         // Fetch users with role 'user', apply pagination and exclude password
+//         const users = await User.find(query)
+//             .select('-password') // Exclude the password field
+//             .limit(limit * 1)
+//             .skip((page - 1) * limit);
 
-        // Send the response with users, total users, and total pages
-        res.json({
-            users,
-            totalUsers,
-            totalPages: Math.ceil(totalUsers / limit),
-            currentPage: page,
-        });
-    } catch (err) {
-        console.error(err.message);
-        res.status(500).send("Erreur du serveur.");
-    }
-};
+//         // Send the response with users, total users, and total pages
+//         res.json({
+//             users,
+//             totalUsers,
+//             totalPages: Math.ceil(totalUsers / limit),
+//             currentPage: page,
+//         });
+//     } catch (err) {
+//         console.error(err.message);
+//         res.status(500).send("Erreur du serveur.");
+//     }
+// };
 

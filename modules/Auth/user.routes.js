@@ -19,12 +19,12 @@ const routes = [
         middlewares: [authenticateJWT, authorize('api.get.profile')],
         handler: UserController.getProfile
     },
-    {
-        path: '/profile',
-        method: 'put',
-        middlewares: [authenticateJWT, authorize('api.update.profile')],
-        handler: UserController.updateProfile
-    },
+    // {
+    //     path: '/profile',
+    //     method: 'put',
+    //     middlewares: [authenticateJWT, authorize('api.update.profile')],
+    //     handler: UserController.updateProfile
+    // },
     {
         path: '/signup',
         method: 'post',
@@ -44,12 +44,12 @@ const routes = [
         handler: UserController.logout
     },
     // Ajout de la route pour récupérer tous les utilisateurs avec pagination
-    {
-        path: '/users',
-        method: 'get',
-        middlewares: [authenticateJWT, authorize('api.get.users')],
-        handler: UserController.getAllUsers
-    }
+    // {
+    //     path: '/users',
+    //     method: 'get',
+    //     middlewares: [authenticateJWT, authorize('api.get.users')],
+    //     handler: UserController.getAllUsers
+    // }
 ];
 
 // Attachement des routes

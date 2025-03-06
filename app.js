@@ -15,7 +15,7 @@ require('dotenv').config(); // Charger les variables d'environnement
 const isProduction = process.env.NODE_ENV === 'production';
 
 // Liste des origines autorisées (vous pouvez les ajuster en fonction de vos besoins)
-const allowedOrigins = ['http://example.com', 'http://localhost:9000','http://localhost:4000'];
+const allowedOrigins = ['http://example.com', 'http://localhost:8080','http://localhost:4000'];
 
 app.use(logger('dev'));
 app.use(express.json());  // Important pour analyser le corps JSON des requêtes
@@ -50,7 +50,7 @@ app.get('*', (req, res) => {
 });
 
 // Définition du port
-const PORT = process.env.PORT || 4000;
+const PORT = process.env.PORT || 8000;
 
 // Connexion à la base de données et démarrage du serveur
 connectDB()
