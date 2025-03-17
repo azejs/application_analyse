@@ -23,8 +23,8 @@ roles.admin = [
     'api.create.user',
     'api.delete.user',
     'api.get.users',
-    'api.create.niveau', // Permettre aux administrateurs de créer des niveaux
-    'api.update.niveau', // Permettre aux administrateurs de mettre à jour des niveaux
+    'api.create.submission', // Permettre aux administrateurs de créer des niveaux
+    'api.get.submission', // Permettre aux administrateurs de mettre à jour des niveaux
     'api.delete.niveau', // Permettre aux administrateurs de supprimer des niveaux
    
 ];
