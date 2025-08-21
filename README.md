@@ -1,22 +1,23 @@
-# Application CRUD avec Node.js, Express et MongoDB
+# 📊 Application d'Analyse Intelligente de Fichiers
 
-Cette application est une démonstration des opérations  en  utilisant Node.js, Express et MongoDB. Le backend expose une API RESTful qui peut être consommée par un frontend, par exemple une application React.js.
+Cette application détecte les **malwares**, **adresses IP** et **domaines suspects** dans les fichiers.  
+Elle utilise une stack technique moderne avec **Node.js**, **Express** et **MongoDB**, exposant une API RESTful consommable par un frontend (ex: React.js).
 
+---
 
+## ⚙️ Configuration de l'Environnement de Développement
 
-## Configuration de l'environnement de développement
+### 📋 Prérequis
+- **Node.js** : Téléchargez la dernière version [ici](https://nodejs.org/) (npm inclus)
+- **MongoDB** : Installez MongoDB Community Server [ici](https://www.mongodb.com/)
+- **Robo 3T** (Optionnel) : Interface GUI MongoDB [ici](https://robomongo.org/)
 
-### Prérequis
+---
 
-1. **Node.js** : Téléchargez et installez la dernière version de Node.js depuis [NodeJS.org](https://nodejs.org/). Cela installera également Node Package Manager (npm), qui est nécessaire pour installer les packages de votre projet.
-2. **MongoDB** : Téléchargez et installez MongoDB depuis [MongoDB.com](https://www.mongodb.com/). Assurez-vous que MongoDB est en cours d'exécution.
-3. **Robo 3T** : Téléchargez et installez Robo 3T depuis [Robo 3T](https://robomongo.org/) pour une interface graphique permettant de gérer votre base de données MongoDB.
+## 🚀 Installation & Exécution
 
-### Installation
-
-Clonez ce projet dans votre répertoire de travail :
-
-```sh
+1. Cloner le dépôt :
+```bash
 git clone https://votre-url-de-repository.git
 cd votre-repertoire-de-travail
 npm install
